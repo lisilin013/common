@@ -9,23 +9,18 @@ set(CMAKE_BUILD_TYPE Release)
 find_package(catkin_simple REQUIRED)
 catkin_simple(ALL_DEPS_REQUIRED)
 
-
 find_package(Boost REQUIRED COMPONENTS serialization system filesystem regex program_options iostreams)
 find_package(absl)
 find_package(yaml-cpp REQUIRED)
 find_package(Threads REQUIRED)
 
-# include_directories(
-#   ${Boost_INCLUDE_DIRS}
-#   ${OpenCV_INCLUDE_DIRS}
-# )
-
-
 cs_add_library(${PROJECT_NAME} 
-  src/common/csv_reader.cc
-  src/common/file_path.cc
-  src/common/pcl_utils.cc
-  src/common/yaml_reader.cc
+  src/file/csv_reader.cc
+  src/file/file_path.cc
+  src/file/yaml_reader.cc
+  src/pcl_utils/pcl_utils.cc
+  src/ros_utils/ros_utils.cc
+  src/ros_utils/tf_transform_broadcaster.cc
 )
 
 target_link_libraries(${PROJECT_NAME} 

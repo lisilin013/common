@@ -27,5 +27,10 @@
   <depend>glog_catkin</depend>
   <depend>gflags_catkin</depend>
   <depend>opencv3_catkin</depend>
+  <depend>pcl_catkin</depend>
+  <depend>gtsam_catkin</depend>
+  <depend>minkindr</depend>
+  <depend>minkindr_gtsam</depend>
+  <depend>minkindr_conversions</depend>
 
 </package>

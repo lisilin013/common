@@ -1,9 +1,9 @@
-// Copyright (c) 2020 NRSL HITsz. All rights reserved.
+// Copyright (c) 2020. All rights reserved.
 // Author: lisilin013@163.com(Silin Li) on 20-9-3.
 
-#include "common/yaml_reader.h"
+#include "file/yaml_reader.h"
 
-namespace common {
+namespace file {
 
 YamlReader::YamlReader(const std::string &config_file) {
   CHECK(boost::filesystem::exists(config_file));
@@ -12,4 +12,4 @@ YamlReader::YamlReader(const std::string &config_file) {
 
 YamlReader::YamlReader(const YAML::Node &node) : node_(std::move(node)) {}
 
-} // namespace common
+} // namespace file

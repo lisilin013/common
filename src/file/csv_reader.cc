@@ -1,14 +1,12 @@
-// Copyright (c) 2020 NRSL HITsz. All rights reserved.
+// Copyright (c) 2020. All rights reserved.
 // Author: lisilin013@163.com(Silin Li) on 2020/9/11.
 
-#include "common/csv_reader.h"
+#include "file/csv_reader.h"
 
-namespace common {
+namespace file {
 
-CsvReader::CsvReader(const std::string &filename, char delimiter)
-    : delimiter_(delimiter) {
-  CHECK(boost::filesystem::is_regular_file(filename))
-      << filename << " is not exist.";
+CsvReader::CsvReader(const std::string &filename, char delimiter) : delimiter_(delimiter) {
+  CHECK(boost::filesystem::is_regular_file(filename)) << filename << " is not exist.";
   input_file_.open(filename);
   CHECK(input_file_.is_open() && input_file_.good());
 }
@@ -74,4 +72,4 @@ bool CsvReader::ParseLine(uint64_t *timestamp, std::vector<double> *data) {
   return true;
 }
 
-} // namespace common
+} // namespace file

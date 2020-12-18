@@ -1,27 +1,27 @@
-// Copyright (c) 2020 NRSL HITsz. All rights reserved.
+// Copyright (c) 2020. All rights reserved.
 // Author: lisilin013@163.com(Silin Li) on 20-8-31.
 
 #pragma once
 
 #include <memory>
 
-#include "ros_ros_utils.h"
-#include "transform/timestamped_transform.h"
 #include <ros/ros.h>
 #include <tf/transform_broadcaster.h>
 #include <tf2_ros/static_transform_broadcaster.h>
+
+#include "kindr/minimal/quat-transformation.h"
+#include "ros_utils/ros_utils.h"
 
 namespace ros_utils {
 
 class TfTransformBroadcaster {
 public:
-  TfTransformBroadcaster(const std::string &frame_id,
-                         const std::string &child_frame_id);
+  TfTransformBroadcaster(const std::string &frame_id, const std::string &child_frame_id);
   virtual ~TfTransformBroadcaster() = default;
 
-  void Publish(const transform::TimestampedTransform &timestamped_transform);
+  void Publish(const kindr::minimal::QuatTransformation &quat_transform, const ros::Time &stamp);
+  void Publish(const tf::Transform &transform, const ros::Time &stamp);
   void Publish(const nav_msgs::Odometry &odometry);
-  void Publish(const tf::Transform &transform, const common::Time &stamp);
 
 private:
   std::string frame_id_;
@@ -31,15 +31,13 @@ private:
 
 class TfStaticTransformBroadcaster {
 public:
-  TfStaticTransformBroadcaster(const transform::Rigid3d &transform,
-                               const std::string &frame_id,
-                               const std::string &child_frame_id);
+  TfStaticTransformBroadcaster(const kindr::minimal::QuatTransformation &quat_transform,
+                               const std::string &frame_id, const std::string &child_frame_id);
   virtual ~TfStaticTransformBroadcaster() = default;
-  void Publish(const common::Time &time);
-  //  typedef std::unique_ptr<TfStaticTransformBroadcaster> UniqPtr;
+  void Publish(const ros::Time &stamp);
 
 private:
-  transform::Rigid3d transform_;
+  kindr::minimal::QuatTransformation transform_;
   std::string frame_id_;
   std::string child_frame_id_;
 

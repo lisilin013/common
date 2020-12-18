@@ -1,4 +1,4 @@
-// Copyright (c) 2020 NRSL HITsz. All rights reserved.
+// Copyright (c) 2020. All rights reserved.
 // Author: lisilin013@163.com(Silin Li) on 2020/9/10.
 
 #pragma once
@@ -13,7 +13,6 @@
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/PointCloud2.h>
 
-namespace common {
 namespace ros_utils {
 
 // Read ground_true/point_cloud/imu from nclt dataset file, and write them to
@@ -26,13 +25,11 @@ public:
   //     Read    = 2,
   //     Append  = 4
   // };
-  BagWriter(const std::string &bag_file_name,
-            uint32_t mode /*rosbag::bagmode::BagMode::Write*/) {
+  BagWriter(const std::string &bag_file_name, uint32_t mode /*rosbag::bagmode::BagMode::Write*/) {
     bag_ = std::make_unique<rosbag::Bag>(bag_file_name, mode);
   }
 
-  template <typename MessageType>
-  void Write(const std::string &topic, const MessageType &msg) {
+  template <typename MessageType> void Write(const std::string &topic, const MessageType &msg) {
     bag_->write(topic, msg.header.stamp, msg);
   }
 
@@ -43,4 +40,3 @@ private:
 };
 
 } // namespace ros_utils
-} // namespace common

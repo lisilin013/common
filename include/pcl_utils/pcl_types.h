@@ -1,4 +1,4 @@
-// Copyright (c) 2020 NRSL HITsz. All rights reserved.
+// Copyright (c) 2020. All rights reserved.
 // Author: lisilin013@163.com(Silin Li) on 20-9-1.
 
 #pragma once
@@ -7,27 +7,24 @@
 #include <Eigen/Dense>
 
 #define PCL_NO_PRECOMPILE
-#include <pcl/filters/impl/voxel_grid.hpp>
-#include <pcl/impl/instantiate.hpp>
-#include <pcl/impl/pcl_base.hpp>
-#include <pcl/kdtree/impl/kdtree_flann.hpp>
+#include <pcl/filters/voxel_grid.h>
+#include <pcl/kdtree/kdtree_flann.h>
+#include <pcl/pcl_base.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <pcl/search/impl/kdtree.hpp>
-#include <pcl/search/impl/organized.hpp>
-#include <pcl/search/impl/search.hpp>
-#include <pcl/segmentation/impl/extract_clusters.hpp>
+#include <pcl/search/kdtree.h>
+#include <pcl/search/organized.h>
+#include <pcl/search/search.h>
+#include <pcl/segmentation/extract_clusters.h>
 
 /// \brief Custom PCL point type that can be extended with custom fields needed
 /// by incremental algorithms. Custom points must be defined and registered in
 /// the global namespace.
 struct __PointExtended {
   inline __PointExtended(const __PointExtended &p)
-      : data{p.x, p.y, p.z, 1.0f}, ed_cluster_id(p.ed_cluster_id),
-        sc_cluster_id(p.sc_cluster_id) {}
+      : data{p.x, p.y, p.z, 1.0f}, ed_cluster_id(p.ed_cluster_id), sc_cluster_id(p.sc_cluster_id) {}
 
-  inline __PointExtended()
-      : data{0.0f, 0.0f, 0.0f, 1.0f}, ed_cluster_id(0u), sc_cluster_id(0u) {}
+  inline __PointExtended() : data{0.0f, 0.0f, 0.0f, 1.0f}, ed_cluster_id(0u), sc_cluster_id(0u) {}
 
   friend std::ostream &operator<<(std::ostream &os, const __PointExtended &p) {
     return os << "x: " << p.x << ", y: " << p.y << ", z: " << p.z
@@ -51,11 +48,10 @@ struct __PointExtended {
 };
 
 // Register the point type.
-POINT_CLOUD_REGISTER_POINT_STRUCT(__PointExtended,
-                                  (float, x, x)(float, y, y)(float, z, z)(
-                                      uint32_t, ed_cluster_id,
-                                      ed_cluster_id)(uint32_t, sc_cluster_id,
-                                                     sc_cluster_id))
+POINT_CLOUD_REGISTER_POINT_STRUCT(
+    __PointExtended,
+    (float, x, x)(float, y, y)(float, z, z)(uint32_t, ed_cluster_id,
+                                            ed_cluster_id)(uint32_t, sc_cluster_id, sc_cluster_id))
 
 struct __PointXYZIR {
   PCL_ADD_POINT4D;                // quad-word XYZ
@@ -64,10 +60,10 @@ struct __PointXYZIR {
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW // ensure proper alignment
 } EIGEN_ALIGN16;
 
-POINT_CLOUD_REGISTER_POINT_STRUCT(
-    __PointXYZIR,
-    (float, x, x)(float, y, y)(float, z, z)(float, intensity,
-                                            intensity)(uint16_t, ring, ring))
+POINT_CLOUD_REGISTER_POINT_STRUCT(__PointXYZIR,
+                                  (float, x, x)(float, y, y)(float, z, z)(float, intensity,
+                                                                          intensity)(uint16_t, ring,
+                                                                                     ring))
 
 struct __PointXYZIRL {
   PCL_ADD_POINT4D; // quad-word XYZ
@@ -78,11 +74,10 @@ struct __PointXYZIRL {
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW // ensure proper alignment
 } EIGEN_ALIGN16;
 
-POINT_CLOUD_REGISTER_POINT_STRUCT(__PointXYZIRL,
-                                  (float, x, x)(float, y, y)(float, z, z)(
-                                      float, intensity,
-                                      intensity)(uint16_t, ring,
-                                                 ring)(uint16_t, label, label))
+POINT_CLOUD_REGISTER_POINT_STRUCT(
+    __PointXYZIRL, (float, x, x)(float, y, y)(float, z, z)(float, intensity,
+                                                           intensity)(uint16_t, ring,
+                                                                      ring)(uint16_t, label, label))
 
 struct __PointXYZIRT {
   PCL_ADD_POINT4D; // quad-word XYZ
@@ -92,10 +87,10 @@ struct __PointXYZIRT {
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW // ensure proper alignment
 } EIGEN_ALIGN16;
 
-POINT_CLOUD_REGISTER_POINT_STRUCT(
-    __PointXYZIRT,
-    (float, x, x)(float, y, y)(float, z, z)(float, intensity, intensity)(
-        uint16_t, ring, ring)(double, timestamp, timestamp))
+POINT_CLOUD_REGISTER_POINT_STRUCT(__PointXYZIRT,
+                                  (float, x, x)(float, y, y)(float, z, z)(float, intensity,
+                                                                          intensity)(
+                                      uint16_t, ring, ring)(double, timestamp, timestamp))
 
 /*
  * A point cloud type that has 6D pose info ([x,y,z,roll,pitch,yaw] intensity is
@@ -109,15 +104,15 @@ struct __PointXYZIRPYT {
   float yaw;
   double time;
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW // make sure our new allocators are aligned
-} EIGEN_ALIGN16; // enforce SSE padding for correct memory alignment
+} EIGEN_ALIGN16;                  // enforce SSE padding for correct memory alignment
 
-POINT_CLOUD_REGISTER_POINT_STRUCT(
-    __PointXYZIRPYT,
-    (float, x, x)(float, y, y)(float, z, z)(float, intensity, intensity)(
-        float, roll, roll)(float, pitch, pitch)(float, yaw, yaw)(double, time,
-                                                                 time))
+POINT_CLOUD_REGISTER_POINT_STRUCT(__PointXYZIRPYT,
+                                  (float, x, x)(float, y, y)(float, z, z)(float, intensity,
+                                                                          intensity)(float, roll,
+                                                                                     roll)(
+                                      float, pitch, pitch)(float, yaw, yaw)(double, time, time))
 
-namespace common {
+namespace pcl_utils {
 
 /*
  * \brief Type representing IDs, for example for segments or clouds
@@ -151,4 +146,4 @@ typedef pcl::PointCloud<PointXYZIRPYT> PointIRPYTCloud;
 typedef PointCloud::Ptr PointCloudPtr;
 typedef PointICloud::Ptr PointICloudPtr;
 
-} // namespace common
+} // namespace pcl_utils

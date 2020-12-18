@@ -1,4 +1,4 @@
-// Copyright (c) 2020 NRSL HITsz. All rights reserved.
+// Copyright (c) 2020. All rights reserved.
 // Author: lisilin013@163.com(Silin Li) on 2020/9/11.
 
 #pragma once
@@ -14,9 +14,8 @@
 #include <absl/strings/str_split.h>
 #include <absl/strings/string_view.h>
 
-namespace common {
+namespace file {
 
-// Nclt csv format, [int, ... , double, ...]
 class CsvReader {
 public:
   CsvReader(const std::string &filename, char delimiter);
@@ -32,4 +31,4 @@ private:
   char delimiter_ = 0;
 };
 
-} // namespace common
+} // namespace file

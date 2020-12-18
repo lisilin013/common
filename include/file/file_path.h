@@ -1,4 +1,4 @@
-// Copyright (c) 2020 NRSL HITsz. All rights reserved.
+// Copyright (c) 2020. All rights reserved.
 // Author: lisilin013@163.com(Silin Li) on 2020/9/4.
 
 #pragma once
@@ -11,10 +11,10 @@
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
 
-namespace common {
+namespace file {
 
 std::string PathJoin(const std::string &base_path, const std::string &name);
 
 std::vector<std::string> ListFiles(const std::string &directory_name);
 
-} // namespace common
+} // namespace file
