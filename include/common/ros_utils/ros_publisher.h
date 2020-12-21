@@ -19,7 +19,7 @@
 #include <octomap_msgs/Octomap.h>
 #include <octomap_msgs/conversions.h>
 
-#include "ros_utils/ros_utils.h"
+#include "common/ros_utils/ros_utils.h"
 
 namespace ros_utils {
 // NOTE: MsyType must be without Ptr or ConstPtr, e.g. sensor_msgs::PointCloud2
@@ -45,7 +45,7 @@ public:
   template <typename PointType>
   void Publish(const pcl::PointCloud<PointType> &cloud, const ros::Time &timestamp) {
     const sensor_msgs::PointCloud2 cloud_msg =
-        ros_utils::ConvertToCloudMsg(cloud, frame_id_, timestamp);
+        ros_utils::ToCloudMsg(cloud, frame_id_, timestamp);
     Publish(cloud_msg);
   }
 

@@ -10,7 +10,7 @@
 #include <tf2_ros/static_transform_broadcaster.h>
 
 #include "kindr/minimal/quat-transformation.h"
-#include "ros_utils/ros_utils.h"
+#include "common/ros_utils/ros_utils.h"
 
 namespace ros_utils {
 

@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-#include "pcl_utils/pcl_types.h"
+#include "common/pcl_utils/pcl_types.h"
 
 namespace pcl_utils {
 

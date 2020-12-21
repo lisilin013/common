@@ -3,7 +3,7 @@
 
 #include <glog/logging.h>
 
-#include "pcl_utils/pcl_utils.h"
+#include "common/pcl_utils/pcl_utils.h"
 
 namespace pcl_utils {
 
