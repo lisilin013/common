@@ -11,7 +11,7 @@
 
 #include <glog/logging.h>
 
-namespace time {
+namespace common {
 
 class TicToc {
 public:
@@ -29,15 +29,15 @@ private:
   std::chrono::time_point<std::chrono::system_clock> start_, end_;
 };
 
-} // namespace time
+} // namespace common
 
-#define FUNC_TIME_BEGIN time::TicToc __func_tictoc;
+#define FUNC_TIME_BEGIN common::TicToc __func_tictoc;
 #define FUNC_TIME_END LOG(INFO) << __FUNCTION__ << " cost time: " << __func_tictoc.toc() << " ms.";
 #define FUNC_TIME_END_WHETHER_OVERTIME(time_limit_ms)                                              \
   LOG_IF(WARNING, __func_tictoc.toc() > time_limit_ms)                                             \
       << __FUNCTION__ << " cost time over: " << __func_tictoc.toc() << " ms.";
 
-#define SEGMENT_TIME_BEGIN(segname) time::TicToc segname;
+#define SEGMENT_TIME_BEGIN(segname) common::TicToc segname;
 #define SEGMENT_TIME_END(segname)                                                                  \
   LOG(INFO) << (#segname) << " cost time: " << segname.toc() << " ms.";
 #define SEGMENT_TIME_END_WHETHER_OVERTIME(segname, time_limit_ms)                                  \
